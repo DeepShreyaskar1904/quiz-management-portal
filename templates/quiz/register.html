@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Quiz Portal{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-100 py-12">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-lg shadow-xl p-8">
+            <h2 class="text-3xl font-bold text-center text-green-600 mb-8">
+                <i class="fas fa-user-plus"></i> Register
+            </h2>
+            
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="id_username" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="id_email" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="id_first_name" class="block text-gray-700 font-bold mb-2">First Name</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        <label for="id_last_name" class="block text-gray-700 font-bold mb-2">Last Name</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="id_phone" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-phone"></i> Phone (Optional)
+                    </label>
+                    {{ form.phone }}
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Account Type</label>
+                    <div class="space-y-2">
+                        {{ form.user_type }}
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="id_password1" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <label for="id_password2" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-lock"></i> Confirm Password
+                    </label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+            </form>
+            
+            <p class="text-center text-gray-600 mt-6">
+                Already have an account? 
+                <a href="{% url 'login' %}" class="text-blue-600 font-bold hover:underline">Login here</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+    }
+    input[type="radio"] {
+        @apply mr-2;
+    }
+</style>
+{% endblock %}

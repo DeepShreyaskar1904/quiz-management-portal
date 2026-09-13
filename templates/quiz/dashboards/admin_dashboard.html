@@ -1,0 +1,54 @@
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-blue-500 text-white rounded-lg shadow-lg p-6">
+        <div class="text-4xl font-bold">{{ total_quizzes }}</div>
+        <div class="text-lg mt-2"><i class="fas fa-book"></i> Total Quizzes</div>
+    </div>
+    <div class="bg-green-500 text-white rounded-lg shadow-lg p-6">
+        <div class="text-4xl font-bold">{{ total_users }}</div>
+        <div class="text-lg mt-2"><i class="fas fa-users"></i> Total Users</div>
+    </div>
+    <div class="bg-yellow-500 text-white rounded-lg shadow-lg p-6">
+        <div class="text-4xl font-bold">{{ total_attempts }}</div>
+        <div class="text-lg mt-2"><i class="fas fa-tasks"></i> Attempts</div>
+    </div>
+    <div class="bg-purple-500 text-white rounded-lg shadow-lg p-6">
+        <div class="text-4xl font-bold">{{ total_students }}</div>
+        <div class="text-lg mt-2"><i class="fas fa-graduation-cap"></i> Students</div>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-lg p-6">
+    <h2 class="text-2xl font-bold mb-4"><i class="fas fa-clock"></i> Recent Quiz Attempts</h2>
+    {% if recent_attempts %}
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left">Student</th>
+                        <th class="px-4 py-2 text-left">Quiz</th>
+                        <th class="px-4 py-2 text-left">Status</th>
+                        <th class="px-4 py-2 text-left">Score</th>
+                        <th class="px-4 py-2 text-left">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attempt in recent_attempts %}
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-4 py-2">{{ attempt.student.get_full_name }}</td>
+                            <td class="px-4 py-2">{{ attempt.quiz.title }}</td>
+                            <td class="px-4 py-2">
+                                <span class="px-3 py-1 rounded-full text-sm font-bold {% if attempt.passed %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                                    {% if attempt.passed %}Passed{% else %}Failed{% endif %}
+                                </span>
+                            </td>
+                            <td class="px-4 py-2">{{ attempt.percentage|floatformat:1 }}%</td>
+                            <td class="px-4 py-2">{{ attempt.started_at|date:"M d, Y" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-gray-600 text-center py-4">No attempts yet</p>
+    {% endif %}
+</div>

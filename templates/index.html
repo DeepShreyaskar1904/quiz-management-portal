@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Management Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100">
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-2xl font-bold text-blue-600">📚 Quiz Portal</a>
+                {% if user.is_authenticated %}
+                    <div class="flex items-center space-x-4">
+                        <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
+                        <a href="{% url 'profile' %}" class="text-gray-700 hover:text-blue-600">Profile</a>
+                        <a href="{% url 'logout' %}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Logout</a>
+                    </div>
+                {% else %}
+                    <div class="flex items-center space-x-4">
+                        <a href="{% url 'login' %}" class="text-gray-700 hover:text-blue-600">Login</a>
+                        <a href="{% url 'register' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen flex items-center justify-center py-12 px-4">
+        <div class="max-w-md w-full">
+            <div class="bg-white rounded-lg shadow-xl p-8">
+                <h1 class="text-4xl font-bold text-center text-blue-600 mb-8">📚 Quiz Management Portal</h1>
+                
+                <div class="space-y-4 text-center">
+                    <p class="text-gray-600 text-lg">Welcome to our comprehensive online quiz management system</p>
+                    
+                    <div class="grid grid-cols-1 gap-4 mt-8">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="font-bold text-blue-600 mb-2">👨‍🎓 For Students</h3>
+                            <p class="text-sm text-gray-600">Take quizzes and earn certificates</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="font-bold text-green-600 mb-2">👨‍🏫 For Teachers</h3>
+                            <p class="text-sm text-gray-600">Create and manage quizzes</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h3 class="font-bold text-purple-600 mb-2">⚙️ For Admins</h3>
+                            <p class="text-sm text-gray-600">Manage users and system</p>
+                        </div>
+                    </div>
+                    
+                    {% if not user.is_authenticated %}
+                        <div class="mt-8 space-y-3">
+                            <a href="{% url 'login' %}" class="block bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-bold">Login</a>
+                            <a href="{% url 'register' %}" class="block bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 font-bold">Register</a>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'dashboard' %}" class="block bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-bold mt-8">Go to Dashboard</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
