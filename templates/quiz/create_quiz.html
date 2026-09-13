@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Quiz - Quiz Portal{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6">
+            <i class="fas fa-plus"></i> Create New Quiz
+        </h1>
+        
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label for="id_title" class="block text-gray-700 font-bold mb-2">
+                    <i class="fas fa-heading"></i> Quiz Title
+                </label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="text-red-500 text-sm mt-1">{{ form.title.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="id_description" class="block text-gray-700 font-bold mb-2">
+                    <i class="fas fa-align-left"></i> Description
+                </label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="text-red-500 text-sm mt-1">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="id_subject" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-book"></i> Subject
+                    </label>
+                    {{ form.subject }}
+                </div>
+                
+                <div>
+                    <label for="id_difficulty" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-signal"></i> Difficulty
+                    </label>
+                    {{ form.difficulty }}
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="id_duration_minutes" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-clock"></i> Duration (minutes)
+                    </label>
+                    {{ form.duration_minutes }}
+                </div>
+                
+                <div>
+                    <label for="id_passing_score" class="block text-gray-700 font-bold mb-2">
+                        <i class="fas fa-percentage"></i> Passing Score (%)
+                    </label>
+                    {{ form.passing_score }}
+                </div>
+            </div>
+            
+            <div class="bg-gray-100 rounded-lg p-4">
+                <h3 class="font-bold text-gray-800 mb-4">Quiz Settings</h3>
+                
+                <div class="space-y-3">
+                    <label class="flex items-center">
+                        {{ form.show_correct_answers }}
+                        <span class="ml-2 text-gray-700">Show correct answers after submission</span>
+                    </label>
+                    
+                    <label class="flex items-center">
+                        {{ form.shuffle_questions }}
+                        <span class="ml-2 text-gray-700">Shuffle questions</span>
+                    </label>
+                    
+                    <label class="flex items-center">
+                        {{ form.shuffle_options }}
+                        <span class="ml-2 text-gray-700">Shuffle answer options</span>
+                    </label>
+                    
+                    <label class="flex items-center">
+                        {{ form.negative_marking }}
+                        <span class="ml-2 text-gray-700">Enable negative marking</span>
+                    </label>
+                </div>
+                
+                <div class="mt-4">
+                    <label for="id_negative_marks" class="block text-gray-700 font-bold mb-2">
+                        Negative Marks per wrong answer
+                    </label>
+                    {{ form.negative_marks }}
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <button type="submit" class="flex-1 bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition">
+                    <i class="fas fa-save"></i> Create Quiz
+                </button>
+                <a href="{% url 'dashboard' %}" class="flex-1 bg-gray-600 text-white font-bold py-3 rounded-lg hover:bg-gray-700 transition text-center">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+    }
+    
+    input[type="checkbox"] {
+        @apply w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500;
+    }
+</style>
+{% endblock %}
